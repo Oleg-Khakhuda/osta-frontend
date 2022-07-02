@@ -1,0 +1,21 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    background-color: #3ea200;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.backButton {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(148, 163, 184);
+    cursor: pointer;
+}
