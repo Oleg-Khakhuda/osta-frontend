@@ -21,7 +21,7 @@ const getPlateById = createAsyncThunk(
   'plates/getPlateById',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/plates/plates/${id}`);
+      const { data } = await axios.get(`/api/plates/plate/${id}`);
       console.log(data);
       return data;
     } catch (error) {
@@ -43,6 +43,20 @@ const addPlate = createAsyncThunk(
   },
 );
 
-const operations = { fetchPlates, getPlateById, addPlate };
+const deletePlate = createAsyncThunk(
+  'deleteContact',
+  async (plateId, { rejectWithValue }) => {
+    try {
+      const {
+        data: { id },
+      } = await axios.delete(`/api/plates/${plateId}`);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+const operations = { fetchPlates, getPlateById, addPlate, deletePlate };
 
 export default operations;

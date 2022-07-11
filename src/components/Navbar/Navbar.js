@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import { Button } from "../button/button";
+import { Button } from "../Button/Button";
+import {routes} from "../../routes";
 
 const Navbar = () => {
     return (
-        <Button
-        style={{width: "100px"}}>
-            <Link to='/create-plate'>
+        <Button>
+            <Link to={routes.createPlates}>
                 Додати виріб
             </Link>
         </Button>

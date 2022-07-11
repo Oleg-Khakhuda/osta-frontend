@@ -3,7 +3,8 @@ import s from './styles.module.css';
 
 export const Button = ({
     containerClassName = '',
-    className = '',
+  className = '',
+    id = '',
     onClick = () => null,
     children = '',
     isBackButton = false
@@ -12,7 +13,8 @@ export const Button = ({
         <div className={ containerClassName }>
         <span
           className={ `${isBackButton ? s.backButton : s.button} ${className}` }
-          onClick={ onClick }
+          onClick={onClick}
+          id={id}
         >
           { children }
         </span>

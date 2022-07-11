@@ -1,5 +1,5 @@
 export const routes = {
   home: '/',
-  createPlates: '/create-plates',
-  plateDetails: '/plates/:plateId',
+  createPlates: '/create-plate',
+  platePage: '/plate/:plateId',
 };

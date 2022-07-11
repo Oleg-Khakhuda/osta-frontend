@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../../components/button/button";
 import PlatesForm from "../../components/PlatesForm/PlatesForm";
 
 const CreatePlatePage = () => {

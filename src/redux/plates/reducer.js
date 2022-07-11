@@ -4,7 +4,8 @@ import {changeFilter} from './actions';
 import operations from './operations';
 
 const items = createReducer([], {
-  [operations.fetchPlates.fulfilled]: (_, { payload }) => payload,  
+  [operations.fetchPlates.fulfilled]: (_, { payload }) => payload,
+  // [operations.getPlateById.fulfilled]: (_, { payload }) => payload.id,  
   [operations.addPlate.fulfilled]: (state, { payload }) => [
     ...state,
     payload,

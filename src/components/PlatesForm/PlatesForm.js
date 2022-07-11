@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import operations from '../../redux/plates/operations';
 import { getPlates } from '../../redux/plates/selectors';
-import { Button } from '../button/button';
+import { Button } from '../Button/Button';
 
 const PlatesForm = () => {
   const plates = useSelector(getPlates);
@@ -15,7 +15,7 @@ const PlatesForm = () => {
     const [quantity, setQuantity] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
-    const [plateImage, setPlateImage] = useState('');
+    const [plateImage, setPlateImage] = useState([]);
 
     const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -46,7 +46,7 @@ const PlatesForm = () => {
   };
   
   const onFileChange = e => {
-    setPlateImage(e.target.files[0]);
+    setPlateImage(e.target.files);
   }
 
   const handleSubmit = () => {
@@ -55,13 +55,15 @@ const PlatesForm = () => {
     formData.append('quantity', quantity);
     formData.append('price', price);
     formData.append('description', description);
-    formData.append('plateImage', plateImage);
+    for (const key of Object.keys(plateImage)) {
+      formData.append('plateImage', plateImage[key]);
+    }
     if (plates.find(plate => plate.name === name)) {
       return alert(`Підлога "${name}" вже існує`);
     };
     dispatch(operations.addPlate(formData)).then((res) => {
       if (!res.error) {
-        navigate(`/${res.payload._id}`, { replace: true });
+        navigate(`/plate/${res.payload.id}`, { replace: true });
       }
     });
     resetForm();
@@ -80,6 +82,7 @@ const PlatesForm = () => {
     return (
       <>
         <Button
+          isBackButton = {true}
           onClick={handleClick}
         >
           Назад
@@ -132,6 +135,7 @@ const PlatesForm = () => {
                 type="file"
                 placeholder="Зображення"
                 name="plateImage"  
+                multiple
                 onChange={onFileChange}
             />
             </label>

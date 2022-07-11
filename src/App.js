@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path={routes.home} element={<Home />} />
-      <Route path={routes.plateDetails} element={<PlatePage />} />
+      <Route path={routes.platePage} element={<PlatePage />} />
       <Route path={routes.createPlates} element={<CreatePlatePage />} />
     </Routes>
   );
