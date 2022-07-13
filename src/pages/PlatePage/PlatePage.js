@@ -3,13 +3,14 @@ import { useDispatch} from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import operations from "../../redux/plates/operations";
 import { Button } from "../../components/Button/Button";
+import s from "./PlatePage.module.css";
 
 const PlatePage = () => {
     const navigate = useNavigate();
     const { plateId } = useParams();
     const dispatch = useDispatch();
     
-    const [plate, setPlate] = useState([]);
+    const [plate, setPlate] = useState({});
 
     useEffect(() => {
         dispatch(operations.getPlateById(plateId))
@@ -26,6 +27,7 @@ const PlatePage = () => {
 
     const onDeletePlate = (e) => {
         dispatch(operations.deletePlate(e.target.id));
+        handleClick();
     }
 
     return (
@@ -39,6 +41,13 @@ const PlatePage = () => {
                 <>
                     <h1>{plate.name}</h1>
                     <img src={plate.plateImage[0]} alt={plate.description} />
+                    <ul className={s.list}>
+                        {plate.plateImage.map((item) => (
+                            <li key={item}>
+                                <img src={item} alt={plate.description} className={s.img} />
+                            </li>
+                        ))}
+                    </ul>
                     <p>Ціна: {plate.price} грн.</p>
                     <p>Кількість: {plate.quantity} шт.</p>
                     <p>Опис підлоги: {plate.description}</p>
@@ -54,7 +63,7 @@ const PlatePage = () => {
                         type="button"
                         isBackButton = {true}
                     >
-                        Видалити
+                        x
                     </Button>
                 </>
             ): (<p>Підлога не знайдена</p>)}

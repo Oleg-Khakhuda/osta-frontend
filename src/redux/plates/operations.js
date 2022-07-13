@@ -22,7 +22,6 @@ const getPlateById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/plates/plate/${id}`);
-      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -35,7 +34,6 @@ const addPlate = createAsyncThunk(
   async (plateData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/api/plates', plateData);
-      console.log(data);
       return data;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -44,13 +42,11 @@ const addPlate = createAsyncThunk(
 );
 
 const deletePlate = createAsyncThunk(
-  'deleteContact',
+  'plates/deletePlate',
   async (plateId, { rejectWithValue }) => {
     try {
-      const {
-        data: { id },
-      } = await axios.delete(`/api/plates/${plateId}`);
-      return id;
+      const { data } = await axios.delete(`/api/plates/${plateId}`);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

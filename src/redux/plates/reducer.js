@@ -5,13 +5,14 @@ import operations from './operations';
 
 const items = createReducer([], {
   [operations.fetchPlates.fulfilled]: (_, { payload }) => payload,
-  // [operations.getPlateById.fulfilled]: (_, { payload }) => payload.id,  
+  
   [operations.addPlate.fulfilled]: (state, { payload }) => [
     ...state,
     payload,
-  ], 
-  // [operations.deleteContact.fulfilled]: (state, { payload }) =>
-  //   state.filter(({ id }) => id !== payload),
+  ],
+  
+  [operations.deletePlate.fulfilled]: (state, { payload }) =>
+    state.filter((item) => item.id !== payload.plate.id),
 });
 
 const filter = createReducer('', {

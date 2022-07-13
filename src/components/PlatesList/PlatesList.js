@@ -14,7 +14,7 @@ const PlatesList = () => {
   
     useEffect(() => {
         dispatch(operations.fetchPlates())
-    }, [dispatch]);
+    }, [dispatch, location]);
     
     const onDeletePlate = (e) => {
         dispatch(operations.deletePlate(e.target.id));
@@ -57,7 +57,7 @@ const PlatesList = () => {
                         type="button"
                         isBackButton = {true}
                     >
-                        Видалити
+                        x
                     </Button>
                 </li>
             ))}
