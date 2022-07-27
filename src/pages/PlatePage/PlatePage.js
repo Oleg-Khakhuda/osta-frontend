@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import operations from "../../redux/plates/operations";
 import { Button } from "../../components/Button/Button";
 import s from "./PlatePage.module.css";
@@ -9,6 +10,7 @@ const PlatePage = () => {
     const navigate = useNavigate();
     const { plateId } = useParams();
     const dispatch = useDispatch();
+    const location = useLocation();
     
     const [plate, setPlate] = useState({});
 
@@ -54,9 +56,17 @@ const PlatePage = () => {
                     <Button>
                         Додати в корзину
                     </Button>
-                    <Button>
-                        Змінити
-                    </Button>
+                    <Link to={{
+                            pathname: `/plate/update-plate/${plate.id}`,
+                            state: {
+                                from: location,
+                            }
+                    }}
+                    >
+                        <Button>
+                            Оновити
+                        </Button>
+                        </Link>
                     <Button
                         onClick={onDeletePlate}
                         id={plate.id}

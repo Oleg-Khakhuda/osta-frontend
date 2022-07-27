@@ -53,6 +53,19 @@ const deletePlate = createAsyncThunk(
   },
 );
 
-const operations = { fetchPlates, getPlateById, addPlate, deletePlate };
+const updatePlate = createAsyncThunk(
+  'plates/updatePlate',
+  async (updatedPlate, { rejectWithValue }) => {
+    try {
+      console.log(updatedPlate.id);
+      const { data } = await axios.put(`/api/plates/plate/${updatedPlate.id}`, updatedPlate);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+const operations = { fetchPlates, getPlateById, addPlate, deletePlate, updatePlate };
 
 export default operations;

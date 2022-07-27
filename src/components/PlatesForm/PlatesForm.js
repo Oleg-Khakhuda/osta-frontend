@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import operations from '../../redux/plates/operations';
 import { getPlates } from '../../redux/plates/selectors';
 import { Button } from '../Button/Button';
+import s from './PlatesForm.module.css';
 
 const PlatesForm = () => {
   const plates = useSelector(getPlates);
@@ -16,6 +17,7 @@ const PlatesForm = () => {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [plateImage, setPlateImage] = useState([]);
+    const [previewImage, setPreviewImage] = useState([]);
 
     const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -44,29 +46,46 @@ const PlatesForm = () => {
         return;
     }
   };
-  
+ 
   const onFileChange = e => {
-    setPlateImage(e.target.files);
+
+    let fileObj = [];
+    let fileArray = [];
+
+    fileObj.push(e.target.files);
+
+    for(let i = 0; i < fileObj[0].length; i++){
+      fileArray.push(URL.createObjectURL(fileObj[0][i]));
+      setPreviewImage(fileArray);
+      }
+      setPlateImage(e.target.files);
   }
 
-  const handleSubmit = () => {
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('quantity', quantity);
-    formData.append('price', price);
-    formData.append('description', description);
-    for (const key of Object.keys(plateImage)) {
-      formData.append('plateImage', plateImage[key]);
-    }
-    if (plates.find(plate => plate.name === name)) {
-      return alert(`Підлога "${name}" вже існує`);
-    };
-    dispatch(operations.addPlate(formData)).then((res) => {
-      if (!res.error) {
-        navigate(`/plate/${res.payload.id}`, { replace: true });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('quantity', quantity);
+      formData.append('price', price);
+      formData.append('description', description);
+      for (const key of Object.keys(plateImage)) {
+        formData.append('plateImage', plateImage[key]);
       }
-    });
-    resetForm();
+      if (plates.find(plate => plate.name === name)) {
+        return alert(`Підлога "${name}" вже існує`);
+      };
+      dispatch(operations.addPlate(formData)).then((res) => {
+        if (!res.error) {
+          navigate(`/plate/${res.payload.id}`, { replace: true });
+        }
+      });
+      
+      resetForm();
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const resetForm = () => {
@@ -87,63 +106,85 @@ const PlatesForm = () => {
         >
           Назад
         </Button>
-            <h1>Додати виріб</h1>
-            <form>
-          <label>
-            Назва підлоги:
-            <input
+            <h1 className={s.text}>Додати виріб</h1>
+            <form className={s.form}>
+          <div className={s.input_box}>
+              <input
                 type="text"
-                placeholder="Назва виробу"
                 value={name}
                 name="name"   
+                required={true}
                 onChange={handleChange}
-            />
-            </label>
-          <label>
-            Кількість:
+                className={s.input}
+              />
+            <label className={s.label}>Назва підлоги:</label>
+          </div>
+          <div className={s.input_box}>
             <input
-                type="text"
-                placeholder="Кількість"
-                value={quantity}
-                name="quantity" 
-                onChange={handleChange}
-            />
-            </label>
-          <label>
-            Ціна підлоги:
+              type="text"
+              value={quantity}
+              name="quantity" 
+              required={true}
+              onChange={handleChange}
+              className={s.input}
+              />
+          <label className={s.label}>Кількість:</label>
+            </div>
+          <div className={s.input_box}>
             <input
-                type="text"
-                placeholder="Ціна"
-                value={price}
-                name="price" 
-                onChange={handleChange}
-            />
-            </label>
-          <label>
-            Опис підлоги:
+              type="text"
+              value={price}
+              name="price" 
+              required={true}
+              onChange={handleChange}
+              className={s.input}
+              />
+              <label className={s.label}>Ціна підлоги:</label>
+            </div>
+          <div className={s.input_box}>
             <input
-                type="text"
-                placeholder="Опис"
-                value={description}
-                name="description"   
-                onChange={handleChange}
-            />
-            </label>
-          <label>
-            Зображення підлоги:
+              type="text"
+              value={description}
+              name="description"  
+              required={true}
+              onChange={handleChange}
+              className={s.input}
+              />
+              <label className={s.label}>Опис підлоги:</label>
+          </div>
+          <div className={s.file_input}>
             <input
-                type="file"
-                placeholder="Зображення"
-                name="plateImage"  
-                multiple
-                onChange={onFileChange}
-            />
-            </label>
-          <Button
+              type="file"
+              name="plateImage"  
+              multiple
+              required={true}
+              id="file-upload"
+              onChange={onFileChange}
+              className={s.input_img}
+              />
+            <label htmlFor="file-upload">Зображення підлоги:</label>
+          </div>
+            <div>
+              {plateImage && (
+                <ul className={s.images_box}>
+                    {previewImage.map((file, index) => (
+                  <li key={index}>
+                        <img
+                          src={file}
+                          alt={file}
+                          className={s.image}
+                        />
+                  </li>
+                    ))}
+                </ul>
+                  )}
+              </div>
+            <Button
             onClick={handleSubmit}
-          >
-            Створити
-          </Button>
+            className={s.button}
+            >
+              Створити
+            </Button>
         </form>
         </>
     );

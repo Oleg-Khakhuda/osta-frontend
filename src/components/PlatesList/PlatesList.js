@@ -48,9 +48,19 @@ const PlatesList = () => {
                     <Button>
                         Додати в корзину
                     </Button>
-                    <Button>
-                        Змінити
-                    </Button>
+                    
+                        <Link to={{
+                            pathname: `/plate/update-plate/${plate.id}`,
+                            state: {
+                                from: location,
+                            }
+                    }}
+                    >
+                        <Button>
+                            Оновити
+                        </Button>
+                        </Link>
+                    
                     <Button
                         onClick={onDeletePlate}
                         id={plate.id}

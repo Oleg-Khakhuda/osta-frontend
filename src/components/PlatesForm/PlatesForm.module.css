@@ -1,0 +1,122 @@
+.text {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    padding: 50px;
+    border-radius: 15px;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+}
+
+.input_box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input_img {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+}
+
+.file_input {
+    margin-bottom: 30px;
+}
+
+.file_input label {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background: linear-gradient(40deg, #ff6ec4, #7873f5);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.file_input label:hover,
+.file_input label:focus {
+    background: linear-gradient(40deg,#7873f5, #ff6ec4);
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 10px;
+    background-color: transparent;
+}
+
+.input_box .label{
+    position: absolute;
+    top: 10px;
+    left: 0;
+    pointer-events: none;
+    margin-bottom: 20px;
+}
+
+.input_box .input:focus ~ .label,
+.input_box .input:valid ~ .label {
+    top: -15px;
+    left: 0;
+    font-size: 14px;
+    color: #14ab00;
+}
+
+.images_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.image{
+    width: 200px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 3px solid #22da01;
+    margin: 10px;
+}
+
+.button {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    color: #ffffff;
+    background-color: #14ab00;
+    padding: 10px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #22da01;
+}
